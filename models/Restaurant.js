@@ -33,10 +33,10 @@ RestaurantSchema.virtual('reservations',{
     justOne:false
 });
 
-//casecade delete appointments when a hospital is deleted
+//casecade delete appointments when a restaurant is deleted
 RestaurantSchema.pre('remove', async function(next){
     console.log(`Reservation being removed from restaurant ${this._id}`);
-    await this.model('Reservation').deleteMany({hospital: this._id});
+    await this.model('Reservation').deleteMany({restaurant: this._id});
     next();
 })
 

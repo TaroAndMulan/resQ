@@ -2,7 +2,7 @@ const Reservation = require('../models/Reservation');
 const Restaurant = require('../models/Restaurant');
 
 //@desc add reservation
-//@route POST /api/v1/hospitals/:hospitalId/reservation
+//@route POST /api/v1/restaurants/:restaurantId/reservation
 //@access Private
 exports.addReservation= async(req,res,next)=>{
     try{
@@ -48,8 +48,8 @@ exports.getReservations= async (req,res,next)=>{
         });
     }
     else{ //if admin , can see all appoiontments
-        if (req.params.hospitalId){
-            query= Reservation.find({hospital:req.params.hospitalId}).populate({
+        if (req.params.restaurantId){
+            query= Reservation.find({restairant:req.params.restaurantId}).populate({
                 path:'restaurant',
                 select:'name address tel'
             });
