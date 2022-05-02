@@ -23,10 +23,6 @@ const RestaurantSchema = new mongoose.Schema({
     closed:{
         type: Number,
         required: [true, 'Please add closing time']
-    },
-    capacity:{
-        type: Number,
-        required: [true, 'Please add maximum capacity']
     }
 
 },{
