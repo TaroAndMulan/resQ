@@ -14,13 +14,12 @@ exports.addReservation= async(req,res,next)=>{
             return res.status(404).json({success:false,
                 message:`no restaurant with the id of ${req.params.restaurantId}`});
         }
-
         req.body.user = req.user.id;
         const existedReservations = await Reservation.find({user:req.user.id});
         if (existedReservations.length >= 3 && req.user.role !== 'admin'){
-            return res.status(400).json({success:false,message:`the user with ID ${req.user.id} has already made 3 reservation`});
+            return res.status(400).json({success:false,message:`the user with ID ${req.user.id} has already made 3 reservations`});
         }
-
+        
         const reservation = await Reservation.create(req.body);
         res.status(200).json({
             success:true,
@@ -45,20 +44,20 @@ exports.getReservations= async (req,res,next)=>{
         query = Reservation.find({user:req.user.id}).populate({
             path:'restaurant',
             select: 'name address tel'
-        });
+        }).populate({path:'user',select:'name'});
     }
-    else{ //if admin , can see all appoiontments
+    else{ //if admin , can see all reservations
         if (req.params.restaurantId){
             query= Reservation.find({restairant:req.params.restaurantId}).populate({
                 path:'restaurant',
                 select:'name address tel'
-            });
+            }).populate({path:'user',select:'name'});
         }
         else {
             query = Reservation.find().populate({
             path:'restaurant',
             select: 'name address tel'
-        });
+        }).populate({path:'user',select:'name'});
         }
     }
     try{

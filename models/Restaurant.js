@@ -17,8 +17,16 @@ const RestaurantSchema = new mongoose.Schema({
         required: [true,'Please add a telephone number']
     },
     open: {
-        type: String,
+        type: Number,
         required: [true, 'Please add an operating time']
+    },
+    closed:{
+        type: Number,
+        required: [true, 'Please add closing time']
+    },
+    capacity:{
+        type: Number,
+        required: [true, 'Please add maximum capacity']
     }
 
 },{
